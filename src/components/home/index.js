@@ -22,7 +22,7 @@ const renderUsers = (users) => users.map((user, index) => {
       </p>
     </div>
   )
-})
+});
 
 const Home = (props) => {
   return (

@@ -3,13 +3,14 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import Menu from '../components/menu/index';
 import Home from '../components/home/index';
 import Info from '../components/info/index';
-import Contact from '../components/info/index';
+import Contact from '../components/contact/index';
 import NotFound from '../components/notFound/index';
 import { config } from '../utils/config';
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
       loading: true,
       data: [],
@@ -20,10 +21,12 @@ class App extends PureComponent {
 
   componentDidMount() {
     const url = config.apiURL;
-    const param = config.resultsParam;
+    const resParam = config.resultsParam;
     const results = config.results;
+    const natParam = config.nationalityParam;
+    const nationalities = config.nationalities;
 
-    fetch(url + param + results)
+    fetch(url + resParam + results + '&' + natParam + nationalities)
       .then(response => response.json())
       .then(data => data.results)
       .then(data => {
@@ -54,13 +57,18 @@ class App extends PureComponent {
           <Route
             path="/info"
             render={() => (
-              <Info />
-            )}
+              <Info
+                usersData={this.state.data}
+              />
+            )
+            }
           />
           <Route
             path="/contact"
             render={() => (
-              <Contact />
+              <Contact
+                usersData={this.state.data}
+              />
             )}
           />
           <Route
