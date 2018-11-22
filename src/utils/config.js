@@ -1,7 +1,7 @@
 export const config = {
   apiURL: 'https://randomuser.me/api/',
   resultsParam: '?results=',
-  results: 10,
+  results: 20,
   nationalityParam: 'nat=',
   nationalities: 'au,ca,es,fr,gb,ie,no,nl,nz,us',
 }
@@ -9,34 +9,34 @@ export const config = {
 export const getCountry = (code) => {
   let country = null;
   switch (code) {
-    case 'au':
+    case 'AU':
       country = 'Australia';
       break;
-    case 'ca':
+    case 'CA':
       country = 'Canada';
       break;
-    case 'es':
+    case 'ES':
       country = 'Spain';
       break;
-    case 'fr':
+    case 'FR':
       country = 'France';
       break;
-    case 'gb':
+    case 'GB':
       country = 'Great Britain';
       break;
-    case 'ie':
+    case 'IE':
       country = 'Ireland';
       break;
-    case 'no':
+    case 'NO':
       country = 'Norway';
       break;
-    case 'nl':
+    case 'NL':
       country = 'Netherlands';
       break;
-    case 'nz':
+    case 'NZ':
       country = 'New Zealand';
       break;
-    case 'us':
+    case 'US':
       country = 'United States';
       break;
     default:

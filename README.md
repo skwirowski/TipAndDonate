@@ -8,9 +8,11 @@
    - API connected to App Component (used API: https://randomuser.me)
    - Preliminary API fetch error handling
    - Home component data render - initial state
-   - Added layout and styling library - Material UI that implement Google's Material Design
-   - Added table data shaping options library - DevExterme React Grid wiht Material UI theming
-   - Added table with API fetched data and sorting functionality
+   - Added layout and styling library - Material UI that implement Google's Material Design (https://material-ui.com/)
+   - Added table data shaping options library - DevExterme React Grid with Material UI theming (https://devexpress.github.io/devextreme-reactive/react/grid/)
+   - Table with API fetched data
+   - Table data sorting, paging and filtering functionalities
+   - Paging page size is catched and loaded from browser's local storage
 
 Stwórz aplikację w React.js, która spełni następujące założenia:
 - interfejs będzie podzielony na dwa widoki: menu i content,

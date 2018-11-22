@@ -1,25 +1,22 @@
 import React, { PureComponent } from 'react';
 import Paper from '@material-ui/core/Paper';
-import { SortingState, IntegratedSorting } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import {
+  SortingState,
+  IntegratedSorting,
+  PagingState,
+  IntegratedPaging,
+  FilteringState,
+  IntegratedFiltering,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  PagingPanel,
+  TableFilterRow,
+} from '@devexpress/dx-react-grid-material-ui';
 
-import { getCountry } from '../../utils/config';
-import { firsLetterToUpperCase } from '../../utils/helperFunctions';
-
-
-const createRows = (users) => users.map((user) => {
-  const rows = {
-    firstname: firsLetterToUpperCase(user.name.first),
-    lastname: firsLetterToUpperCase(user.name.last),
-    gender: user.gender,
-    age: user.dob.age,
-    city: firsLetterToUpperCase(user.location.city),
-    country: getCountry(user.nat),
-    registered: user.registered.date,
-  };
-
-  return rows;
-});
+import { createRows, columns } from '../../utils/tableData';
 
 class Info extends PureComponent {
   constructor(props) {
@@ -27,23 +24,38 @@ class Info extends PureComponent {
 
     this.state = {
       sorting: [{ columnName: 'secondname', direction: 'asc' }],
+      currentPage: 0,
+      pageSize: 5,
+      pageSizes: [5, 10, 15, 0],
+      filters: [],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
+    this.changeCurrentPage = currentPage => this.setState({ currentPage });
+    this.changePageSize = (pageSize) => {
+      localStorage.setItem('pageSize', JSON.stringify(pageSize));
+      this.setState({ pageSize });
+    };
+    this.changeFilters = filters => this.setState({ filters });
+  }
+
+  componentDidMount() {
+    const catchedPageSize = localStorage.getItem('pageSize');
+    if (catchedPageSize) {
+      return (
+        this.setState({ pageSize: JSON.parse(catchedPageSize) })
+      );
+    }
+    return (
+      this.setState({ pageSize: 5 })
+    );
   }
 
   render() {
-    const columns = [
-      { name: 'firstname', title: 'First Name' },
-      { name: 'lastname', title: 'Last Name' },
-      { name: 'gender', title: 'Gender' },
-      { name: 'age', title: 'Age' },
-      { name: 'city', title: 'City' },
-      { name: 'country', title: 'Country' },
-      { name: 'registered', title: 'Registered' },
-    ];
     const rows = createRows(this.props.usersData);
-    const { sorting } = this.state;
+    const {
+      sorting, pageSize, pageSizes, currentPage, filters
+    } = this.state;
 
     return (
       <Paper>
@@ -56,12 +68,27 @@ class Info extends PureComponent {
             onSortingChange={this.changeSorting}
           />
           <IntegratedSorting />
+          <PagingState
+            currentPage={currentPage}
+            onCurrentPageChange={this.changeCurrentPage}
+            pageSize={pageSize}
+            onPageSizeChange={this.changePageSize}
+          />
+          <IntegratedPaging />
+          <FilteringState
+            filters={filters}
+            onFiltersChange={this.changeFilters}
+          />
+          <IntegratedFiltering />
           <Table />
           <TableHeaderRow
             showSortingControls
           />
+          <PagingPanel
+            pageSizes={pageSizes}
+          />
+          <TableFilterRow />
         </Grid>
-
       </Paper>
     );
   }
