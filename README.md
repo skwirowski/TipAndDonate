@@ -13,11 +13,11 @@
    - CONTENT section shows each menu tab content,
    - content is fetched down from any publicly available API (e.g. http://jsonplaceholder.typicode.com/),
    - data of at least one content tab is presented in the table form,
-   - data displayed in table shoud be divided into pages and it should be possible to choose the page,
+   - data displayed in table should be divided into pages and it should be possible to choose the page,
    - amount of data elements displayed on the page should be changeable,
-   - table data shoud use _sort_ and _filter_ functionalities,
-   - amount of data elements displayed on the page shoud be saved and loaded from _localStorage_,
-   - all API responses should be checked for HTTP errors, and if they occur proper statement shoud be displayed (error status and content).
+   - table data should use _sort_ and _filter_ functionalities,
+   - amount of data elements displayed on the page should be saved and loaded from _localStorage_,
+   - all API responses should be checked for HTTP errors, and if they occur proper statement should be displayed (error status and content).
 
 Please, estimate time needed to accomplish this exercise.
 
@@ -30,13 +30,16 @@ Please, estimate time needed to accomplish this exercise.
    - HOME and CONTACT subpages render user's pictures and data fetched from API,
    - INFO subpage contains API fetched data rendered in table form,
    - data table functionalities are: sorting, filtering and pagination,
-   - data rows quantity rendered on a single table page can be changed by the user, user's choice is saved to browser's _localStorage_ and loaded when application is opend again,
+   - data rows quantity rendered on a single table page can be changed by the user, user's choice is saved to browser's _localStorage_ and loaded when application is opened again,
    - app has proper components handling API data fetch operation error and incorrect subpage's URL address.
 
 ### Application operation has been tested on operating systems:
-#### Ubuntu 18.04.1 LTS:
+#### Ubuntu 18.04.1 LTS 64-bit:
       - Google Chrome version 70.0.3538.77 (Official Build) (64-bit),
       - Mozilla Firefox for Ubuntu version 63.0.3 (64-bit).
+#### Windows 8.1 Pro 64-bit:
+      - Google Chrome version 70.0.3538.110 (Official Build) (64-bit),
+      - Mozilla Firefox version 63.0.3 (64-bit).
 
 ----
 
@@ -76,5 +79,8 @@ Prosilibyśmy o określenie realnego czas potrzebnego na wykonanie zadania.
 
 ### Działanie aplikacji zostało sprawdzone na systemach:
 #### Ubuntu 18.04.1 LTS:
-      - Google Chrome wersja 70.0.3538.77 (Official Build) (64-bit),
+      - Google Chrome wersja 70.0.3538.77 (Oficjalna wersja) (64-bit),
+      - Mozilla Firefox wersja 63.0.3 (64-bit).
+#### Windows 8.1 Pro 64-bit:
+      - Google Chrome wersja 70.0.3538.110 (Oficjalna wersja) (64-bit),
       - Mozilla Firefox wersja 63.0.3 (64-bit).
