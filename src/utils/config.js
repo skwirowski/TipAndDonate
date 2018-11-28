@@ -1,9 +1,11 @@
+const querries = {
+  results: 30,
+  nationalities: 'au,ca,es,fr,gb,ie,no,nl,nz,us',
+}
+
 export const config = {
   apiURL: 'https://randomuser.me/api/',
-  resultsParam: '?results=',
-  results: 20,
-  nationalityParam: 'nat=',
-  nationalities: 'au,ca,es,fr,gb,ie,no,nl,nz,us',
+  query: `?results=${querries.results}&nat=${querries.nationalities}`,
 }
 
 export const getCountry = (code) => {

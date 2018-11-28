@@ -16,9 +16,9 @@ import {
   TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { createRows, columns } from '../../utils/tableData';
+import { createRows, columns } from '../../utils/data';
 
-class Info extends PureComponent {
+class DataTable extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -94,4 +94,4 @@ class Info extends PureComponent {
   }
 }
 
-export default Info;
+export default DataTable;

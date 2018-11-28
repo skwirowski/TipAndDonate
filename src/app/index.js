@@ -1,85 +1,105 @@
-import React, { PureComponent, Fragment } from 'react';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import Menu from '../components/menu/index';
-import Home from '../components/home/index';
-import Info from '../components/info/index';
-import Contact from '../components/contact/index';
-import NotFound from '../components/notFound/index';
+import React, { Component, Fragment } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Menu from '../components/menu';
+import Home from '../components/home';
+import DataTable from '../components/table';
+import Contact from '../components/contact';
+import Loader from '../components/loader';
+import ErrorMessage from '../components/error';
+import NotFound from '../components/notFound';
 import { config } from '../utils/config';
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: true,
-      data: [],
-    }
+class App extends Component {
+  state = {
+    loading: true,
+    data: null,
+    errorName: null,
+    errorMessage: null,
   }
-
-  // TODO: actions handlers
 
   componentDidMount() {
     const url = config.apiURL;
-    const resParam = config.resultsParam;
-    const results = config.results;
-    const natParam = config.nationalityParam;
-    const nationalities = config.nationalities;
+    const DEFAULT_QUERRY = config.query;
 
-    fetch(url + resParam + results + '&' + natParam + nationalities)
-      .then(response => response.json())
-      .then(data => data.results)
+    fetch(url + DEFAULT_QUERRY)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error(response.status);
+      })
       .then(data => {
         this.setState({
           loading: false,
-          data
+          data: data.results,
         });
-        console.log(this.state.data);
       })
       .catch(error => {
-        console.log('Data fetch error:', error);
+        this.setState({
+          loading: false,
+          errorName: error.name,
+          errorMessage: error.message,
+        });
       });
   }
 
   render() {
+    //? set window allows to use Material UI new typography variants
+    window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true
+
+    const { loading, data, errorName, errorMessage } = this.state;
     return (
       <Fragment>
+        <CssBaseline />
         <Menu />
-        <Switch>
-          <Route
-            exact path="/"
-            render={() => (
-              <Home
-                usersData={this.state.data}
+        {loading ?
+
+          <Loader /> :
+
+          errorMessage ?
+
+            <ErrorMessage
+              errorName={errorName}
+              errorMessage={errorMessage}
+            /> :
+
+            <Switch>
+              <Route
+                exact path="/"
+                render={() => (
+                  <Home
+                    usersData={data}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            path="/info"
-            render={() => (
-              <Info
-                usersData={this.state.data}
+              <Route
+                path="/table"
+                render={() => (
+                  <DataTable
+                    usersData={data}
+                  />
+                )
+                }
               />
-            )
-            }
-          />
-          <Route
-            path="/contact"
-            render={() => (
-              <Contact
-                usersData={this.state.data}
+              <Route
+                path="/contact"
+                render={() => (
+                  <Contact
+                    usersData={data}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            render={() => (
-              <NotFound />
-            )}
-          />
-        </Switch>
+              <Route
+                render={() => (
+                  <NotFound />
+                )}
+              />
+            </Switch>
+        }
       </Fragment>
     );
   }
 }
 
-export default withRouter(App);
+export default App;
